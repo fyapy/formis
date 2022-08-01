@@ -1,0 +1,27 @@
+{
+  "name": "formis",
+  "version": "1.0.0",
+  "description": "Vue forms managment library",
+  "main": "dist/index.js",
+  "author": "Amir Abdullin",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc --removeComments && tsc --declaration --emitDeclarationOnly"
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "vue": ">=3.0.0"
+  },
+  "dependencies": {
+    "klona": "^2.0.5"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "typescript": "^4.7.4",
+    "vue": "^3.2.37"
+  }
+}
