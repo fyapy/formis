@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "author": "Amir Abdullin",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc --removeComments && tsc --declaration --emitDeclarationOnly"
