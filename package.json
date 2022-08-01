@@ -1,6 +1,6 @@
 {
   "name": "formis",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Vue forms managment library",
   "main": "dist/index.js",
   "author": "Amir Abdullin",
