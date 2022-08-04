@@ -2,7 +2,7 @@
 
 Lightweight Vue 3 library for working with forms.
 
-> This library came from a Vee-validate fork that was created due to (issue)[https://github.com/logaretm/vee-validate/issues/3607] state loss in multi-ster forms, which has not been available for a long time fixed, despite (Pull request)[https://github.com/logaretm/vee-validate/pull/3608] with a solution to the problem.
+This library came from a Vee-validate fork that was created due to (issue)[https://github.com/logaretm/vee-validate/issues/3607] state loss in multi-ster forms, which has not been available for a long time fixed, despite (Pull request)[https://github.com/logaretm/vee-validate/pull/3608] with a solution to the problem.
 
 ## Getting Started
 
