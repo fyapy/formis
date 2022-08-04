@@ -28,45 +28,45 @@ import { computed } from 'vue'
 import { required } from 'utils/validate'
 
 type LoginValues = {
-    username: string
-    password: string
+  username: string
+  password: string
 }
 
 const { errors, isSubmitting, handleSubmit } = useForm<LoginValues>({
-    initialValues: {
-        username: '',
-        password: '',
-    },
-    validate({ username, password }, errors) {
-        if (required(username)) errors.username = i18n.REQUIRED
-        if (required(password)) errors.password = i18n.REQUIRED
+  initialValues: {
+    username: '',
+    password: '',
+  },
+  validate({ username, password }, errors) {
+    if (required(username)) errors.username = i18n.REQUIRED
+    if (required(password)) errors.password = i18n.REQUIRED
 
-        return errors
-    },
+    return errors
+  },
 })
 
 const isDisabled = computed(() => isSubmitting.value || isInvalid(errors, ['username', 'password']))
 
 const handleFormSubmit = handleSubmit(async (values, { setFieldError, reset }) => {
-    // async code
-    // ...
+  // async code
+  // ...
 
-    // set custom async error from handler
-    setFieldError('password', i18n.SOME_ERROR)
+  // set custom async error from handler
+  setFieldError('password', i18n.SOME_ERROR)
 
-    // reset values
-    reset()
-    // reset(nextValues)
+  // reset values
+  reset()
+  // reset(nextValues)
 })
 </script>
 
 <template>
-    <form @submit="handleFormSubmit">
-        <FieldText name="username" placeholder="Username" />
-        <FieldText name="password" placeholder="Password" />
+  <form @submit="handleFormSubmit">
+    <FieldText name="username" placeholder="Username" />
+    <FieldText name="password" placeholder="Password" />
 
-        <button type="submit">Submit</button>
-    </form>
+    <button type="submit">Submit</button>
+  </form>
 </template>
 ```
 
@@ -78,8 +78,8 @@ Field components intergration with Formis context:
 import { useField } from 'formis'
 
 const props = defineProps<{
-    name: string
-    placeholder: string
+  name: string
+  placeholder: string
 }>()
 
 const { value, error, touched, handleBlur } = useField<string>(props.name)
@@ -99,6 +99,7 @@ const { value, error, touched, handleBlur } = useField<string>(props.name)
 
 Example of how to make multi step form.
 We need two basic abstractions:
+
 - useStepForm.ts
 - FormStep.vue
 
@@ -108,7 +109,6 @@ Firstly, we will create a custom hook for managing multi-step form context:
 // useStepForm.ts
 import { ref, provide, computed } from 'vue'
 import { FormErrors, Validate, useForm } from 'composes/formis'
-
 
 export type NextOptions<TValues = Record<string, any>> = {
   values: TValues
@@ -229,12 +229,7 @@ And after all the preparatory work, we can release the multi-step form component
 <script setup lang="ts">
 import { computed } from 'vue'
 import { isNotEmail, required, dateNotYoung } from 'utils/validation'
-import {
-  FormStep,
-  HandleNext,
-  useStepForm,
-  StepFormValidate,
-} from 'providers'
+import { FormStep, HandleNext, useStepForm, StepFormValidate } from 'providers'
 
 type Values = {
   email: string
@@ -249,39 +244,42 @@ const validate: StepFormValidate<Values> = ({
   email,
   birthDate,
 }, { step, errors }) => {
-    switch (step) {
-        case 0:
-            if (required(email)) errors.email = messages.REQUIRED_FIELD_VALIDATION_MESSAGE
-            if (isNotEmail(email)) errors.email = messages.INVALID_EMAIL
-            break
-        case 1:
-            if (required(birthDate)) errors.birthDate = messages.REQUIRED_FIELD_VALIDATION_MESSAGE
-            if (dateNotYoung(birthDate)) errors.birthDate = messages.INVALID_AGE_TOO_YOUNG
-            break
-    }
-    return errors
+  switch (step) {
+    case 0:
+      if (required(email))
+        errors.email = messages.REQUIRED_FIELD_VALIDATION_MESSAGE
+      if (isNotEmail(email)) errors.email = messages.INVALID_EMAIL
+      break
+    case 1:
+      if (required(birthDate))
+        errors.birthDate = messages.REQUIRED_FIELD_VALIDATION_MESSAGE
+      if (dateNotYoung(birthDate))
+        errors.birthDate = messages.INVALID_AGE_TOO_YOUNG
+      break
+  }
+  return errors
 }
 
 const handleNext: HandleNext<Values> = async ({ values, step }) => {
-    switch (step) {
-        case 0:
-        case 1:
-        return true
-        case 2: {
-            // some async code
-            const success = true 
+  switch (step) {
+    case 0:
+    case 1:
+      return true
+    case 2: {
+      // some async code
+      const success = true
 
-            return success
-        }
+      return success
     }
+  }
 
-    return false
+  return false
 }
 
 const { onSubmit, isLastStep, step, values } = useStepForm<Values>({
-    next: handleNext,
-    initialValues,
-    validate,
+  next: handleNext,
+  initialValues,
+  validate,
 })
 </script>
 
@@ -293,10 +291,7 @@ const { onSubmit, isLastStep, step, values } = useStepForm<Values>({
       <div>
         <div>Enter your email</div>
       </div>
-      <FieldText
-        name="email"
-        placeholder="Enter your email address"
-      />
+      <FieldText name="email" placeholder="Enter your email address" />
     </FormStep>
 
     <FormStep>
